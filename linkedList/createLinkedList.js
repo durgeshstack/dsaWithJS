@@ -1,109 +1,67 @@
-function Node(val) {
-    this.val = val;
-    this.next = null;
+function Node (val){
+    return {
+        val,next:null
+    }
 }
+class MyLinkedList {
+    constructor(){
+        this.size=0;
+        this.head=null;
+    }
+get(index){
+    if(index < 0 || index >= this.size) return -1;
 
-function MyLinkedList() {
-    this.head = null;
-    this.size = 0;
-}
+    let temp = this.head;
 
-MyLinkedList.prototype.get = function(index) {
-
-    if (index < 0 || index >= this.size) {
-        return -1;
+    for(let i=0;i<index;i++){
+        temp = temp.next;
     }
 
-    let current = this.head;
-
-    for (let i = 0; i < index; i++) {
-        current = current.next;
-    }
-
-    return current.val;
-};
-
-MyLinkedList.prototype.addAtHead = function(val) {
-
-    const newNode = new Node(val);
-
-    newNode.next = this.head;
-
-    this.head = newNode;
-
-    this.size++;
-};
-
-MyLinkedList.prototype.addAtTail = function(val) {
-
-    const newNode = new Node(val);
-
-    if (!this.head) {
-        this.head = newNode;
+    return temp.val;
+}
+    addAtHead(val){
+        const newNode= new Node(val);
+        newNode.next = this.head;
+        this.head=newNode;
         this.size++;
-        return;
     }
-
-    let current = this.head;
-
-    while (current.next) {
-        current = current.next;
+    addAtTail(val){
+        let temp = this.head;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        const newNode = new Node(val);
+        temp.next = newNode;
+        this.size++;
     }
-
-    current.next = newNode;
-
-    this.size++;
-};
-
-MyLinkedList.prototype.addAtIndex = function(index, val) {
-
-    if (index < 0 || index > this.size) {
-        return;
+    addAtIndex(index,val){
+        let temp = this.head;
+        const mini_index= Math.min(index,this.size-1);
+        for(let i=0;i<mini_index;i++){
+         temp=temp.next;
+        }
+        const newNode = new Node(val);
+        newNode.next = temp.next;
+        temp.next = newNode;
+        this.size++;
     }
-
-    if (index === 0) {
-        this.addAtHead(val);
-        return;
-    }
-
-    const newNode = new Node(val);
-
-    let prev = this.head;
-
-    for (let i = 0; i < index - 1; i++) {
-        prev = prev.next;
-    }
-
-    newNode.next = prev.next;
-
-    prev.next = newNode;
-
-    this.size++;
-};
-
-MyLinkedList.prototype.deleteAtIndex = function(index) {
-
-    if (index < 0 || index >= this.size) {
-        return;
-    }
-
-    if (index === 0) {
-        this.head = this.head.next;
+    deleteAtIndex(index){
+        let temp = this.head;
+        let pre = temp;
+        if(index>(this.size-1)){
+            throw new Error("index out of range")
+        }
+        for(let i=0;i<index;i++){
+            pre=temp;
+         temp=temp.next;
+        }
+        pre.next = temp.next;
+        temp.next=null;
         this.size--;
-        return;
+        
     }
 
-    let prev = this.head;
-
-    for (let i = 0; i < index - 1; i++) {
-        prev = prev.next;
-    }
-
-    prev.next = prev.next.next;
-
-    this.size--;
-};
-
+}
 
 /** 
  * Your MyLinkedList object will be instantiated and called as such:
