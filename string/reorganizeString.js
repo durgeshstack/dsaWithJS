@@ -11,7 +11,7 @@ function reorganizeString(s) {
             maxChar = char;
         }
 
-
+    
     }
 
     if (maxCount > Math.floor((s.length + 1) / 2)) {
