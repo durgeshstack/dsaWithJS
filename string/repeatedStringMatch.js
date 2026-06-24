@@ -8,5 +8,5 @@ function repeatedStringMatch(a, b) {
     newSt += a;
     if (newSt.includes(b)) return miniRepeat + 1;
 
-    return -1;
+    return -1;  
 };
